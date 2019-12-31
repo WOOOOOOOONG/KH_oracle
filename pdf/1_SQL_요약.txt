@@ -1,0 +1,7 @@
+별칭
+리터럴('원' AS 단위) -> ' ' 써야 하는듯
+DISTINCT : SELECT 절에 한번만 쓸 수 있다.
+!=, ^=, <>
+비교대상컬럼명 BETWEEN 하한값 AND 상한값 // 반대는 안됨. NOT BETWEEN AND도 가능
+LIKE -> '%', '_'
+LIKE '___\_%' ESCAPE '\'

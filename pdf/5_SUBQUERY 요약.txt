@@ -1,0 +1,25 @@
+-서브쿼리 유형
+단일행 서브쿼리 : 조회 결과 값의 갯수가 1
+
+다중행 서브쿼리 : 조회 결과 값의 갯수가 여러개(IN/NOT IN, ANY(여러개 중 하나라도 크/작은경우), ALL, EXIST/NOT EXIST)
+
+다중열 서브쿼리 : WHERE절에서 서브쿼리로 받는 컬럼이 여러개일 때
+
+다중행 다중열 서브쿼리 : 받는 컬럼도 여러개 하나당 값도 여러개
+
+상호연관 서브쿼리 : 밖과 서브쿼리 사이에서 이리갔다가 저리갔다가 하는거
+
+스칼라 서브쿼리 : SELECT문에 사용되는 서브쿼리. 한개의 행만 반환한다. 단일값 = 스칼라
+
+인라인 뷰 : FROM절에서 서브쿼리 사용 + ROWNUM
+
+WITH : 서브쿼리에 이름을 붙여주고 사용 시 이름 사용하게 함
+제일 위에 작성.
+WITH TOPN_SAL AS (SELECT EMP_ID, EMP_NAME, SALARY --미리 정의하고 씀
+                    FROM EMPLOYEE
+                    ORDER BY SALARY DESC)
+SELECT ROWNUM, EMP_NAME, SALARY
+FROM TOPN_SAL;
+
+RNAK() OVER : 동일한 순위 이후에 동일한 인원 수만큼 건너뛰고 계산
+DENSE_RANK() OVER : 중복 순위 이후의 등수를 이후 등수로 처리

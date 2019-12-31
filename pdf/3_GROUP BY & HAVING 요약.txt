@@ -1,0 +1,26 @@
+-GROUP BY DECODE
+GROUP BY DECODE(SUBSTR(EMP_NO, 8, 1), 1, '남', 2, '여'); // 여자남자로 묶음. 이 때 SELECT절에서도 이와 똑같이 써준다.
+
+- 집계 함수(ROLLUP, CUBE)
+그룹별 산출한 결과값의 집계 계산(GROUP BY 절에서만 사용)
+GROUP BY ROLLUP(JOB_CODE) : JOBCODE별로 묶고 마지막에 합계
+GROUP BY CUBE(JOB_CODE) : 동일 결과
+
+ROLLUP : 그룹별로 중간 집계를 처리하는 함수
+CUBE : 그룹별 산출한 결과를 집계하는 함수
+GROUPING : ROLLUP이나 CUBE에 의한 산출물이 인자로 전달받은 칼럼의 집합의 산출물이면 0, 아니면 1 반환(SELECT문에 사용)
+
+ROLLUP, CUBE는 여러 인자가 왔을 때 차이가 있는 듯 한데, ROLLUP은 뒷 인자는 거의 무시한다고 보면 될 것 같고, CUBE는 첫 번째 값으로 다 정리하되 이후 두 번째 인자로의 총계도 내고 마지막에 총 합계 낸다
+GROUPING은 ROLLUP이나 CUBE 쓴거를 SELECT문에서 이걸로 묶였는지 아닌지 확인하는 거고. GROUPING(DEPT_CODE) -> 0 OR 1
+
+-SET OPERATION
+여러가지 조건이 있을 때 그에 해당하는 여러 개 결과값을 결합시키고 싶을 때 사용
+UNION, INTERSECT(교집합), UNION ALL(여러개 쿼리 하나로 합치고 중복 데이터 한번 더 가져옴.교집합+합집합), MINUS(차집합), GROUPING SETS
+
+GORUPING SETS : 그룹별로 처리된 여러개의 SELECT문을 하나로 합칠 때 사용
+ EX) SELECT DEPT_CODE, JOB_CODE, MANAGER_ID, COUNT(*), FLOOR(AVG(SALARY))
+	FROM EMPLOYEE
+	GROUP BY GROUPING SETS(
+        (DEPT_CODE, JOB_CODE, MANAGER_ID),
+        (DEPT_CODE, MANAGER_ID),
+        (JOB_CODE, MANAGER_ID));

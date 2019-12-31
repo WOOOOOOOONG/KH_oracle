@@ -1,0 +1,36 @@
+JOIN : 관계형 데이터베이스에서 SQL을 이용해 테이블간 관계를 맺는 방법
+
+ANSI가 JOIN, 오라클이 =
+
+1) 내부 조인(INNER JOIN = 등가 조인)
+연결에 사용할 두 컬럼명 다른경우, 같은 경우 사용
+
+2) 외부 조인(OUTER JOIN)
+두 테이블의 지정하는 컬럼 값이 일치하지 않는 행도 조인에 포함시킴
+
+LEFT JOIN
+RIGHT [OUTER] JOIN
+DEPT_CODE = DEPT_ID(+)
+DEPT_CODE(+) = DEPT_ID
+
+FULL [OUTER] 조인
+합치기에 사용한 두 테이블이 가진 모든 행을 결과에 포함
+FULL OUTER JOINT DEPARTMENT ON(DEPT_CODE = DEPT_ID)
+DEPT_CODE(+) = DEPT_ID(+) // 안됨. 오라클 구문은 FULL OUTER JOIN 사용 못함
+
+3) 교차 조인
+매핑된 모든 데이터 출력(곱집합)
+CROSS JOIN DEPARTMENT
+
+
+4) 비등가 조인
+'=' 사용하지 않는 조인문, 지정 컬럼값이 일치하는 경우가 아니라 값의 범위에 포함되는 행들을 연결
+JOIN SAL_GRADE ON(SALARY BETWEEN MIN_SAL AND MAX_SAL)
+WHERE SALARY BETWEEN MIN_SAL AND MAX_SAL
+
+5) 자체 조인
+자기 자신과 조인을 맺음
+FROM EMPLOYEE E, EMPLOYEE M WHERE E.MANAGER_ID = M.EMP_ID
+JOIN EMPLOYEE M ON(E.MANAGER_ID = M.EMP_ID)
+
+6) 다중 조인
